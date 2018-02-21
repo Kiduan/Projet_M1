@@ -16,8 +16,8 @@ public class MainActivity extends AppCompatActivity {
 
     // Méthode utilisé par le bouton 1
     public void button1Click (View view){
-        Toast.makeText(MainActivity.this,
-                "Placeholder1 is clicked!", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this,TestJson.class);
+        startActivity(intent);
     }
 
     // Méthode utilisé par le bouton 2
