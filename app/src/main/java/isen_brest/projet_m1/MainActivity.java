@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import java.io.InputStream;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     public void button1Click (View view){
         Intent intent = new Intent(this,TestJson.class);
         startActivity(intent);
+
     }
 
     // Méthode utilisé par le bouton 2
