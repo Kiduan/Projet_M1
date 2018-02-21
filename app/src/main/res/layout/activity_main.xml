@@ -6,13 +6,65 @@
     android:layout_height="match_parent"
     tools:context="isen_brest.projet_m1.MainActivity">
 
-    <TextView
+    <Space
+        android:id="@+id/space"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World! Test! Another test!"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:onClick="button1Click"
+        android:text="Placeholder 1"
+        app:layout_constraintBottom_toTopOf="@+id/space"
+        app:layout_constraintEnd_toStartOf="@+id/space" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:onClick="button2Click"
+        android:text="Placeholder 2"
+        app:layout_constraintBottom_toTopOf="@+id/space"
+        app:layout_constraintStart_toEndOf="@+id/space" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="32dp"
+        android:onClick="button3Click"
+        android:text="Placeholder 3"
+        app:layout_constraintEnd_toStartOf="@+id/space"
+        app:layout_constraintTop_toBottomOf="@+id/space" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:onClick="button4Click"
+        android:text="Placeholder 4"
+        app:layout_constraintStart_toEndOf="@+id/space"
+        app:layout_constraintTop_toBottomOf="@+id/space" />
 
 </android.support.constraint.ConstraintLayout>
