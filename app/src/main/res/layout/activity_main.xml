@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context="isen_brest.projet_m1.MainActivity">
 
+    <!-- Positionne les boutons dans la page -->
     <Space
         android:id="@+id/space"
         android:layout_width="wrap_content"
@@ -19,30 +20,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- Bouton "Démarrer" -->
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/start_button"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_marginBottom="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
-        android:onClick="button1Click"
-        android:text="Placeholder 1"
+        android:onClick="startClick"
+        android:text="Démarrer"
         app:layout_constraintBottom_toTopOf="@+id/space"
         app:layout_constraintEnd_toStartOf="@+id/space" />
 
+        <!-- Bouton "Paramètres" -->
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/param_button"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_marginBottom="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:onClick="button2Click"
-        android:text="Placeholder 2"
+        android:onClick="paramClick"
+        android:text="Paramètres"
         app:layout_constraintBottom_toTopOf="@+id/space"
         app:layout_constraintStart_toEndOf="@+id/space" />
 
+        <!-- Bouton 3 -->
     <Button
         android:id="@+id/button3"
         android:layout_width="250dp"
@@ -55,6 +59,7 @@
         app:layout_constraintEnd_toStartOf="@+id/space"
         app:layout_constraintTop_toBottomOf="@+id/space" />
 
+        <!-- Bouton 4 -->
     <Button
         android:id="@+id/button4"
         android:layout_width="250dp"

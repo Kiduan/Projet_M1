@@ -18,8 +18,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TestJsonActivity" />
-        <activity android:name=".TestJson"></activity>
+        <activity android:name=".UserMenuActivity" />
+        <activity android:name=".UserSeqActivity" />
+        <activity android:name=".PasswordActivity" />
+        <activity android:name=".ModifMenuActivity" />
+        <activity android:name=".ModifSeqActivity"></activity>
     </application>
 
 </manifest>

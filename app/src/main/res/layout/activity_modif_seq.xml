@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="isen_brest.projet_m1.ModifSeqActivity">
+
+    <!-- Texte par défaut -->
+    <TextView
+        android:id="@+id/modif_seq_default_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:layout_marginTop="20dp"
+        android:text="Page d'ajout ou de modification d'un séquentiel"/>
+
+    <!-- Texte qui va afficher les données voulues -->
+    <TextView
+        android:id="@+id/modif_serial_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:layout_marginTop="20dp"/>
+
+</LinearLayout>

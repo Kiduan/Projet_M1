@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="isen_brest.projet_m1.ModifMenuActivity">
+
+
+    <!-- Positionnement des sequentiels dans un GridView -->
+    <GridView
+        android:id="@+id/modif_seq_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numColumns="4"
+        android:gravity="center"/>
+
+    <!-- Bouton "Partager" -->
+    <Button
+        android:id="@+id/share_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:layout_gravity="end"
+        android:gravity="center"
+        android:text="Partager"/>
+
+    <!-- Bouton "Options" -->
+    <Button
+        android:id="@+id/options_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:layout_gravity="end"
+        android:gravity="center"
+        android:text="Options"/>
+
+    <!-- Bouton "Ajouter" -->
+    <Button
+        android:id="@+id/add_seq_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:layout_gravity="end"
+        android:gravity="center"
+        android:onClick="add_click"
+        android:text="Ajouter"/>
+
+
+</LinearLayout>
+
+
+
