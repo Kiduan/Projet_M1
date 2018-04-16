@@ -26,4 +26,15 @@
         android:textSize="24sp"
         android:layout_marginTop="20dp"/>
 
+    <!--Bouton qui permet d'accéder à la prise de photo -->
+    <Button
+        android:id="@+id/take_picture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:layout_gravity="end"
+        android:gravity="center"
+        android:onClick="photo_click"
+        android:text="Photo"/>
+
 </LinearLayout>
