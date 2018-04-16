@@ -21,10 +21,11 @@
         android:id="@+id/share_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="40dp"
         android:layout_gravity="end"
+        android:layout_margin="40dp"
         android:gravity="center"
-        android:text="Partager"/>
+        android:onClick="share_click"
+        android:text="Partager" />
 
     <!-- Bouton "Options" -->
     <Button

@@ -9,7 +9,15 @@ import android.widget.GridView;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
+import java.io.File;
+import java.util.ArrayList;
+
+import isen_brest.projet_m1.model.Sequentiel;
 import isen_brest.projet_m1.utils.CustomGridview;
+import isen_brest.projet_m1.utils.FilesUtil;
+import isen_brest.projet_m1.utils.JsonUtil;
 
 public class ModifMenuActivity extends AppCompatActivity {
 
@@ -61,5 +69,44 @@ public class ModifMenuActivity extends AppCompatActivity {
     public void add_click(View view) {
         Intent modifseqActivity = new Intent(this, ModifSeqActivity.class);
         startActivity(modifseqActivity);
+    }
+
+    // méthode OnClick sur le bouton "Partager"
+    // ATTENTION - temporairement utilisé pour créer un séquentiel test
+    public void share_click(View view) {
+
+        // On crée et on remplit un objet Sequentiel
+        //---------------------------------------------
+        Sequentiel sequentiel = new Sequentiel();
+        sequentiel.setNomSequentiel("Exemple de séquentiel");
+        sequentiel.setVoix(false);
+        sequentiel.setDefilement("minuteur");
+
+        //---------------------------------------------
+        Sequentiel.Etape etape1 = new Sequentiel.Etape();
+        etape1.setNomEtape("étape 1");
+        etape1.setNumEtape(1);
+        etape1.setMinuteur(15);
+
+        Sequentiel.Etape etape2 = new Sequentiel.Etape();
+        etape2.setNomEtape("deuxième étape");
+        etape2.setNumEtape(2);
+        etape2.setMinuteur(30);
+
+        //---------------------------------------------
+        ArrayList<Sequentiel.Etape> etapeArrayList = new ArrayList<>();
+        etapeArrayList.add(etape1);
+        etapeArrayList.add(etape2);
+        sequentiel.setEtapeList(etapeArrayList);
+
+        // On utilise la méthode toJson pour obtenir un objet JSONObject à partir du Sequentiel
+        //---------------------------------------------
+        JSONObject jsonObject = JsonUtil.toJson(sequentiel);
+
+        // Test des méthodes de FilesUtil
+        //---------------------------------------------
+        File pathname = FilesUtil.getJsonDir(this);
+        FilesUtil.createFile(jsonObject.toString().getBytes(), pathname, sequentiel.getNomSequentiel()+".json");
+
     }
 }
