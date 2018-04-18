@@ -139,4 +139,42 @@ public class Sequentiel {
             this.videoBoucle = videoBoucle;
         }
     }
+
+    public static Sequentiel createSeqTest()
+    {
+        // On crée et on remplit un objet Sequentiel
+        //---------------------------------------------
+        Sequentiel seqTest = new Sequentiel();
+        seqTest.setNomSequentiel("Exemple de séquentiel");
+        seqTest.setVoix(false);
+        seqTest.setDefilement("minuteur");
+
+        //---------------------------------------------
+        Sequentiel.Etape etape1 = new Sequentiel.Etape();
+        etape1.setMedia("img_2");
+        etape1.setNomEtape("étape 1");
+        etape1.setNumEtape(1);
+        etape1.setMinuteur(15);
+
+        Sequentiel.Etape etape2 = new Sequentiel.Etape();
+        etape2.setMedia("img_4");
+        etape2.setNomEtape("deuxième étape");
+        etape2.setNumEtape(2);
+        etape2.setMinuteur(30);
+
+        Sequentiel.Etape etape3 = new Sequentiel.Etape();
+        etape3.setMedia("img_7");
+        etape3.setNomEtape("deuxième étape");
+        etape3.setNumEtape(3);
+        etape3.setMinuteur(10);
+
+        //---------------------------------------------
+        ArrayList<Sequentiel.Etape> etapeArrayList = new ArrayList<>();
+        etapeArrayList.add(etape1);
+        etapeArrayList.add(etape2);
+        etapeArrayList.add(etape3);
+        seqTest.setEtapeList(etapeArrayList);
+
+        return seqTest;
+    }
 }

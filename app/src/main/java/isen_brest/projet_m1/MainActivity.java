@@ -35,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
     public void button3Click (View view){
         Toast.makeText(MainActivity.this,
                 "Placeholder3 is clicked!", Toast.LENGTH_SHORT).show();
+
+        Intent seqActivity = new Intent(this,UserSeqActivity.class);
+        startActivity(seqActivity);
     }
 
     // Méthode utilisée par le bouton 4
