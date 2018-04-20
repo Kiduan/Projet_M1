@@ -1,21 +1,20 @@
 package isen_brest.projet_m1;
-
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static isen_brest.projet_m1.utils.CameraUtil.getPhotosDir;
+
+@SuppressWarnings("FieldCanBeLocal")
 public class ModifSeqActivity extends AppCompatActivity {
 
     //déclaration du texte par défaut et du texte dans lequel on charge les données
@@ -25,6 +24,7 @@ public class ModifSeqActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modif_seq);
 
@@ -48,58 +48,55 @@ public class ModifSeqActivity extends AppCompatActivity {
         modif_serial_description.setText(newString);
     }
 
-  /*  String PhotoPath;
-
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  // prefix
-                ".jpg",         // suffix
-                storageDir      // directory
-        );
-
-        // Save a file: path for use with ACTION_VIEW intents
-        PhotoPath = image.getAbsolutePath();
-        return image;
-    }*/
-
-   //fonction prise de photo sur clic du bouton Photo
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-    public void photo_click(View view) {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-        }
-    }
-
-/*    static final int REQUEST_TAKE_PHOTO = 1;
+    //fonction prise de photo sur clic du bouton Photo
+    static final int REQUEST_TAKE_PHOTO = 1;
+    static int PHOTO_TAKEN = 0;
 
     public void photo_click(View view) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                // Error occurred while creating the File
-
+            startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+        }
+    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent takePictureIntent) {
+        // Check which request we're responding to
+        if (requestCode == REQUEST_TAKE_PHOTO) {
+            // Make sure the request was successful
+            File Photos = getPhotosDir(this);
+            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+            File Picture = new File(Photos, "JPG_" + timeStamp + ".jpg");
+            Uri uriSavedImage = Uri.fromFile(Picture);
+            if (Photos != null) {
+                PHOTO_TAKEN = 1;
+                Toast.makeText(ModifSeqActivity.this,
+                        "La photo a été prise", Toast.LENGTH_SHORT).show();
             }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this,
-                        "com.example.android.fileprovider",
-                        photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+            if (resultCode == PHOTO_TAKEN) {
+                Toast.makeText(ModifSeqActivity.this,
+                        "on est dans le second if !", Toast.LENGTH_SHORT).show();
+                //Enregistrer la photo au bon endroit (dans file Photos)
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
+                startActivityForResult(takePictureIntent, PHOTO_TAKEN);
             }
         }
-    }*/
-
+    }
 }
+
+/*Intent imageIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+
+//folder stuff
+File imagesFolder = new File(Environment.getExternalStorageDirectory(), "MyImages");
+imagesFolder.mkdirs();
+
+File image = new File(imagesFolder, "QR_" + timeStamp + ".png");
+Uri uriSavedImage = Uri.fromFile(image);
+
+imageIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
+startActivityForResult(imageIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+*/
+
+
 
 
