@@ -1,6 +1,8 @@
 package isen_brest.projet_m1;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +11,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -50,52 +56,55 @@ public class ModifSeqActivity extends AppCompatActivity {
 
     //fonction prise de photo sur clic du bouton Photo
     static final int REQUEST_TAKE_PHOTO = 1;
-    static int PHOTO_TAKEN = 0;
+    static int PHOTO_TAKEN = -1;
 
     public void photo_click(View view) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
+
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+
+            File Picture = new File(getPhotosDir(this), "picture.jpg");
+
+            Uri uri = Uri.fromFile(Picture);
+            //  takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+
             startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+
         }
     }
+
     protected void onActivityResult(int requestCode, int resultCode, Intent takePictureIntent) {
-        // Check which request we're responding to
+
         if (requestCode == REQUEST_TAKE_PHOTO) {
+
             // Make sure the request was successful
-            File Photos = getPhotosDir(this);
-            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-            File Picture = new File(Photos, "JPG_" + timeStamp + ".jpg");
-            Uri uriSavedImage = Uri.fromFile(Picture);
-            if (Photos != null) {
-                PHOTO_TAKEN = 1;
-                Toast.makeText(ModifSeqActivity.this,
-                        "La photo a été prise", Toast.LENGTH_SHORT).show();
-            }
             if (resultCode == PHOTO_TAKEN) {
-                Toast.makeText(ModifSeqActivity.this,
-                        "on est dans le second if !", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ModifSeqActivity.this, "Toast", Toast.LENGTH_LONG).show();
+
                 //Enregistrer la photo au bon endroit (dans file Photos)
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
-                startActivityForResult(takePictureIntent, PHOTO_TAKEN);
+                File Picture = new File(getPhotosDir(this), "picture.jpg");
+                try {
+                    FileChannel fis = new FileInputStream(takePictureIntent.getData().toString()).getChannel();
+                    FileChannel fos = new FileOutputStream(Picture).getChannel();
+                    if (fis != null && fos != null) {
+                        fos.transferFrom(fis, 0, fis.size());
+                    }
+                    fis.close();
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                Toast.makeText(ModifSeqActivity.this,
+                        "La photo est stockée", Toast.LENGTH_SHORT).show();
+
+                //  Uri pathPicture = Uri.fromFile(Picture);
+                // takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, pathPicture);
             }
         }
     }
 }
-
-/*Intent imageIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-
-//folder stuff
-File imagesFolder = new File(Environment.getExternalStorageDirectory(), "MyImages");
-imagesFolder.mkdirs();
-
-File image = new File(imagesFolder, "QR_" + timeStamp + ".png");
-Uri uriSavedImage = Uri.fromFile(image);
-
-imageIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
-startActivityForResult(imageIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-*/
 
 
 
