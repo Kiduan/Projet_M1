@@ -140,12 +140,12 @@ public class Sequentiel {
         }
     }
 
-    public static Sequentiel createSeqTest()
+    public static Sequentiel createSeqTest(String nomSeq)
     {
         // On crée et on remplit un objet Sequentiel
         //---------------------------------------------
         Sequentiel seqTest = new Sequentiel();
-        seqTest.setNomSequentiel("Exemple de séquentiel");
+        seqTest.setNomSequentiel(nomSeq == null ?"Exemple de séquentiel" : nomSeq);
         seqTest.setVoix(false);
         seqTest.setDefilement("minuteur");
 

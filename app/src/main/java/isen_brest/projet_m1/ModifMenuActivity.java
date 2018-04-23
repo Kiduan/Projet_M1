@@ -72,19 +72,6 @@ public class ModifMenuActivity extends AppCompatActivity {
     }
 
     // méthode OnClick sur le bouton "Partager"
-    // ATTENTION - temporairement utilisé pour créer un séquentiel test
     public void share_click(View view) {
-
-        Sequentiel sequentiel = Sequentiel.createSeqTest();
-
-        // On utilise la méthode toJson pour obtenir un objet JSONObject à partir du Sequentiel
-        //---------------------------------------------
-        JSONObject jsonObject = JsonUtil.toJson(sequentiel);
-
-        // Test des méthodes de FilesUtil
-        //---------------------------------------------
-        File pathname = FilesUtil.getJsonDir(this);
-        FilesUtil.createFile(jsonObject.toString().getBytes(), pathname, sequentiel.getNomSequentiel()+".json");
-
     }
 }

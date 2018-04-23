@@ -10,6 +10,17 @@
 
     <!-- texte dans lequel on charge les données liées à chaque séquentiel -->
 
+    <Button
+        android:id="@+id/suivant2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="136dp"
+        android:layout_marginStart="76dp"
+        android:onClick="precedentClick"
+        android:text="Précédent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <ImageView
         android:id="@+id/media"
         android:layout_width="wrap_content"
@@ -37,9 +48,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="136dp"
         android:layout_marginEnd="76dp"
-        android:layout_marginRight="76dp"
         android:onClick="suivantClick"
-        android:text="Button"
+        android:text="Suivant"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </android.support.constraint.ConstraintLayout>

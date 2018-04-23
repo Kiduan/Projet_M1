@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -72,20 +74,19 @@ public class UserSeqActivity extends AppCompatActivity {
         // On récupère la liste des activités et on initialise 'numEtapeActuelle'
         etapes = seqTest.getEtapeList();
         numEtapeActuelle = 0;
-
-        // On affiche le texte de la première étape
-        nomEtape.setText(etapes.get(numEtapeActuelle).getNomEtape());
-
-        // On affiche l'image
-        String name = etapes.get(numEtapeActuelle).getMedia();
-        int id = getResources().getIdentifier(name, "drawable", getPackageName());
-        media.setImageDrawable(getResources().getDrawable(id));
     }
 
-    // Méthode utilisée par le bouton "Paramètres"
+    // Méthode utilisée par le bouton "suivant"
     public void suivantClick (View view){
         if(numEtapeActuelle<etapes.size()-1){numEtapeActuelle++;}
-        else {numEtapeActuelle--;}
+
+        displayEtape();
+    }
+
+    // Méthode utilisée par le bouton "precedent"
+    public void precedentClick (View view){
+        if(numEtapeActuelle>0){numEtapeActuelle--;}
+
         displayEtape();
     }
 
@@ -97,5 +98,7 @@ public class UserSeqActivity extends AppCompatActivity {
         String name = etapes.get(numEtapeActuelle).getMedia();
         int id = getResources().getIdentifier(name, "drawable", getPackageName());
         media.setImageDrawable(getResources().getDrawable(id));
+
+        //Picasso.get().load("http://i.imgur.com/DvpvklR.png").into(media);
     }
 }
