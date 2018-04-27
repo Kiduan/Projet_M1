@@ -1,24 +1,17 @@
 package isen_brest.projet_m1;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.channels.FileChannel;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-import static isen_brest.projet_m1.utils.CameraUtil.getPhotosDir;
+import static isen_brest.projet_m1.utils.CameraUtil.copyToDir;
+import isen_brest.projet_m1.utils.CustomGridview; //utilise le layout GridView importé
 
 @SuppressWarnings("FieldCanBeLocal")
 public class ModifSeqActivity extends AppCompatActivity {
@@ -27,6 +20,18 @@ public class ModifSeqActivity extends AppCompatActivity {
     private TextView modif_text;
     private TextView modif_serial_description;
     private Button take_picture;
+    private GridView seqGrid = null;
+
+    //------------------------Exemple pour test !-----------
+    Integer[] Icons = {
+            R.drawable.img_1, R.drawable.img_2,
+            R.drawable.img_3, R.drawable.img_4,
+            R.drawable.img_1, R.drawable.img_2,
+    };
+    String[] iconDescriptions = {
+            "image 1", "image 2", "image 3", "image 4", "image 5", "image 6",
+    };
+    //------------------------A remplacer par les images prises -------
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +43,7 @@ public class ModifSeqActivity extends AppCompatActivity {
         modif_text = (TextView) findViewById(R.id.modif_seq_default_text);
         modif_serial_description = (TextView) findViewById(R.id.modif_serial_description);
         take_picture = (Button) findViewById(R.id.take_picture);
+        seqGrid = (GridView) findViewById(R.id.seq_grid);
 
         //affichage des données importées depuis le clic précédent
         String newString;
@@ -52,55 +58,43 @@ public class ModifSeqActivity extends AppCompatActivity {
             newString = (String) savedInstanceState.getSerializable("description");
         }
         modif_serial_description.setText(newString);
-    }
 
-    //fonction prise de photo sur clic du bouton Photo
+        //-------------exemple pour test : changer le contenu du GridView-----
+        //adapteur CustomGridview
+        final CustomGridview adapter = new CustomGridview(this, iconDescriptions, Icons);
+        seqGrid.setAdapter(adapter);
+
+        //Méthode Onclick pour chaque étape du séquentiel
+        seqGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                int position_reelle = position +1;
+                Toast.makeText(ModifSeqActivity.this, "Clic sur l'item : " + position_reelle, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    //---------------------fin------------------------//
+
+    //-------------------------------------------------------------
+    //------fonction prise de photo sur clic du bouton Photo-----//
     static final int REQUEST_TAKE_PHOTO = 1;
     static int PHOTO_TAKEN = -1;
 
     public void photo_click(View view) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
-
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-
-            File Picture = new File(getPhotosDir(this), "picture.jpg");
-
-            Uri uri = Uri.fromFile(Picture);
-            //  takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-
             startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-
         }
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent takePictureIntent) {
 
         if (requestCode == REQUEST_TAKE_PHOTO) {
-
-            // Make sure the request was successful
             if (resultCode == PHOTO_TAKEN) {
-                Toast.makeText(ModifSeqActivity.this, "Toast", Toast.LENGTH_LONG).show();
+                copyToDir(this, takePictureIntent.getData());
+                Toast.makeText(ModifSeqActivity.this, "Photo enregistrée !", Toast.LENGTH_SHORT).show();
 
-                //Enregistrer la photo au bon endroit (dans file Photos)
-                File Picture = new File(getPhotosDir(this), "picture.jpg");
-                try {
-                    FileChannel fis = new FileInputStream(takePictureIntent.getData().toString()).getChannel();
-                    FileChannel fos = new FileOutputStream(Picture).getChannel();
-                    if (fis != null && fos != null) {
-                        fos.transferFrom(fis, 0, fis.size());
-                    }
-                    fis.close();
-                    fos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                Toast.makeText(ModifSeqActivity.this,
-                        "La photo est stockée", Toast.LENGTH_SHORT).show();
-
-                //  Uri pathPicture = Uri.fromFile(Picture);
-                // takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, pathPicture);
             }
         }
     }

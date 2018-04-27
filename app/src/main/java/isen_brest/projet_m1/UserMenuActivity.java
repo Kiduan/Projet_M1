@@ -43,14 +43,8 @@ public class UserMenuActivity extends AppCompatActivity {
                 Intent userseqActivity = new Intent(view.getContext(),UserSeqActivity.class);
                 userseqActivity.putExtra("description",((TextView) view.findViewById(R.id.custom_user_menu_icon_description)).getText());
                 startActivity(userseqActivity);
-
             }
 
         });
-
     }
-
-
-
-
 }
