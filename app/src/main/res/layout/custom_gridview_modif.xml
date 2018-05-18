@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/slow_etape_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_centerVertical="true"
+        android:text="-"/>
+
+    <TextView
+        android:id="@+id/vitesse_etape_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:layout_toRightOf="@+id/slow_etape_btn"
+        android:layout_centerVertical="true"
+        android:text="vitesse"
+        />
+
+    <Button
+        android:id="@+id/fast_etape_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/vitesse_etape_text"
+        android:layout_centerVertical="true"
+        android:text="+"/>
+
+    <ImageView
+        android:id="@+id/custom_user_menu_icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        />
+
+    <TextView
+        android:id="@+id/custom_user_menu_icon_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/custom_user_menu_icon"
+        android:textSize="24sp"
+        />
+
+</RelativeLayout>

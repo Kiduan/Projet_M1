@@ -9,15 +9,7 @@ import android.widget.GridView;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
-import org.json.JSONObject;
-
-import java.io.File;
-import java.util.ArrayList;
-
-import isen_brest.projet_m1.model.Sequentiel;
-import isen_brest.projet_m1.utils.CustomGridview;
-import isen_brest.projet_m1.utils.FilesUtil;
-import isen_brest.projet_m1.utils.JsonUtil;
+import isen_brest.projet_m1.utils.CustomGridviewMenu;
 
 public class ModifMenuActivity extends AppCompatActivity {
 
@@ -27,9 +19,35 @@ public class ModifMenuActivity extends AppCompatActivity {
             R.drawable.img_1, R.drawable.img_2,
             R.drawable.img_3, R.drawable.img_4,
             R.drawable.img_1, R.drawable.img_2,
+            R.drawable.img_3, R.drawable.img_4,
+            R.drawable.img_1, R.drawable.img_2,
+            R.drawable.img_3, R.drawable.img_4,
+            R.drawable.img_1, R.drawable.img_2,
+            R.drawable.img_3, R.drawable.img_4,
+            R.drawable.img_1, R.drawable.img_2,
+            R.drawable.img_3, R.drawable.img_4,
+            R.drawable.img_1, R.drawable.img_2,
+            R.drawable.img_3, R.drawable.img_4,
+            R.drawable.img_1, R.drawable.img_2,
+            R.drawable.img_3, R.drawable.img_4,
+            R.drawable.img_1, R.drawable.img_2,
+            R.drawable.img_3, R.drawable.img_4,
+            R.drawable.img_1, R.drawable.img_2,
+            R.drawable.img_3, R.drawable.img_4,
+            R.drawable.img_1, R.drawable.img_2,
+
+
     };
     String[] iconDescriptions = {
             "image 1", "image 2", "image 3", "image 4", "image 5", "image 6",
+            "image 7", "image 8", "image 9", "image 10",
+            "image 11", "image 12", "image 13", "image 14",
+            "image 15", "image 16", "image 17", "image 18",
+            "image 19", "image 20", "image 21", "image 22",
+            "image 23", "image 24", "image 25", "image 26",
+            "image 27", "image 28", "image 29", "image 30",
+            "image 31", "image 32", "image 33", "image 34",
+            "image 35", "image 36", "image 37", "image 38",
     };
 
     //déclaration des 3 boutons supplémentaires
@@ -49,7 +67,7 @@ public class ModifMenuActivity extends AppCompatActivity {
         share = (Button) findViewById(R.id.share_btn);
 
         //adapteur CustomGridView
-        final CustomGridview adapter = new CustomGridview(this, iconDescriptions, Icons);
+        final CustomGridviewMenu adapter = new CustomGridviewMenu(this, iconDescriptions, Icons);
         seqList.setAdapter(adapter);
 
         //méthode OnClick qui permet à chaque item d'exporter ses données correspondantes vers l'activité suivante

@@ -1,6 +1,5 @@
 package isen_brest.projet_m1.utils;
 
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,21 +10,19 @@ import android.widget.TextView;
 
 import isen_brest.projet_m1.R;
 
-public class CustomGridview  extends BaseAdapter {
-
+public class CustomGridviewModif extends BaseAdapter {
 
     private Context mContext;
-
     private final Integer[] Icons;
     private final String[] iconDescriptions;
 
-
-    public CustomGridview(Context c, String[] iconDescriptions, Integer[] Icons)
+    public CustomGridviewModif(Context c, String[] iconDescriptions, Integer[] Icons)
     {
         mContext = c;
         this.Icons = Icons;
         this.iconDescriptions = iconDescriptions;
     }
+
     @Override
     public int getCount() {
         return iconDescriptions.length;
@@ -40,26 +37,24 @@ public class CustomGridview  extends BaseAdapter {
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        View seqList;
+        View modifList;
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
-            seqList = new View(mContext);
-            seqList = inflater.inflate(R.layout.custom_gridview, null);
-            TextView textView = (TextView) seqList.findViewById(R.id.custom_user_menu_icon_description);
-            ImageView imageView = (ImageView) seqList.findViewById(R.id.custom_user_menu_icon);
-
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            textView.setText(iconDescriptions[position]);
-            imageView.setImageResource(Icons[position]);
+            modifList = new View(mContext);
+            modifList = inflater.inflate(R.layout.custom_gridview_modif, null);
 
         }
         else {
-            seqList = (View) convertView;
+            modifList = (View) convertView;
         }
 
-        return seqList;
+        TextView textView = (TextView) modifList.findViewById(R.id.custom_user_menu_icon_description);
+        ImageView imageView = (ImageView) modifList.findViewById(R.id.custom_user_menu_icon);
 
-
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        textView.setText(iconDescriptions[position]);
+        imageView.setImageResource(Icons[position]);
+        return modifList;
     }
 }
 

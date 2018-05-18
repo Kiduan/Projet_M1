@@ -8,8 +8,7 @@ import android.widget.GridView;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
-
-import isen_brest.projet_m1.utils.CustomGridview; //utilise le layout GridView importé
+import isen_brest.projet_m1.utils.CustomGridviewMenu; //utilise le layout GridView importé
 
 public class UserMenuActivity extends AppCompatActivity {
 
@@ -32,7 +31,7 @@ public class UserMenuActivity extends AppCompatActivity {
         seqList = (GridView) findViewById(R.id.seq_list);
 
         //adapteur CustomGridview
-        final CustomGridview adapter = new CustomGridview(this, iconDescriptions, Icons);
+        final CustomGridviewMenu adapter = new CustomGridviewMenu(this, iconDescriptions, Icons);
         seqList.setAdapter(adapter);
 
         //Méthode Onclick pour chaque séquentiel : et export de données vers l'activité suivante

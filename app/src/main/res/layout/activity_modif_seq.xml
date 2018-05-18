@@ -1,47 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="isen_brest.projet_m1.ModifSeqActivity">
 
-    <!-- Texte par défaut -->
     <TextView
         android:id="@+id/modif_seq_default_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:gravity="center"
+        android:text="Page d'ajout ou de modification d'un séquentiel"
         android:textSize="24sp"
-        android:layout_marginTop="20dp"
-        android:text="Page d'ajout ou de modification d'un séquentiel"/>
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <!-- Texte qui va afficher les données voulues -->
     <TextView
         android:id="@+id/modif_serial_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:gravity="center"
         android:textSize="24sp"
-        android:layout_marginTop="20dp"/>
+        app:layout_constraintTop_toBottomOf="@+id/modif_seq_default_text"
+         />
 
-    <!--Bouton qui permet d'accéder à la prise de photo -->
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/modif_serial_description"
+        >
+
+        <Button
+            android:id="@+id/slow_seq_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:text="-" />
+
+        <TextView
+            android:id="@+id/vitesse_seq_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="vitesse"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/fast_seq_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+" />
+
+        <!--Bouton qui permet d'accéder à la prise de photo -->
+        <Button
+            android:id="@+id/take_picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="photo_click"
+            android:text="Photo" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        >
+
+        <CheckBox
+            android:id="@+id/defil_manuel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:text="Défilement manuel"
+            android:textSize="24sp" />
+
+        <CheckBox
+            android:id="@+id/synth_vocale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Synthèse vocale"
+            android:layout_gravity="center_horizontal"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="758dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        >
+
+        <GridView
+            android:id="@+id/modif_grid"
+            android:layout_width="match_parent"
+            android:layout_height="748dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:numColumns="1"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="3dp" />
+    </LinearLayout>
+
     <Button
-        android:id="@+id/take_picture"
+        android:id="@+id/add_etape_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="40dp"
-        android:layout_gravity="end"
-        android:gravity="center"
-        android:onClick="photo_click"
-        android:text="Photo"/>
+        android:layout_marginTop="44dp"
+        android:text="Ajouter une étape"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
+         />
 
-    <GridView
-        android:id="@+id/seq_grid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:numColumns="1"
-        android:gravity="center"/>
+</android.support.constraint.ConstraintLayout>
 
-</LinearLayout>
