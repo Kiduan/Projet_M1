@@ -47,4 +47,30 @@
         android:textSize="24sp"
         />
 
+    <Button
+        android:id="@+id/lower_etape_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/custom_user_menu_icon"
+        android:text="-"/>
+
+    <TextView
+        android:id="@+id/number_etape_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:layout_toRightOf="@+id/lower_etape_btn"
+        android:layout_centerVertical="true"
+        android:text="numéro étape"
+        />
+
+    <Button
+        android:id="@+id/upper_etape_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/number_etape_text"
+        android:layout_centerVertical="true"
+        android:text="+"/>
 </RelativeLayout>

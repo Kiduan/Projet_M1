@@ -11,6 +11,8 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import static isen_brest.projet_m1.utils.CameraUtil.copyToDir;
 import isen_brest.projet_m1.utils.CustomGridviewModif; //utilise le layout GridView importé
 
@@ -38,6 +40,10 @@ public class ModifSeqActivity extends AppCompatActivity {
     private Button slow_etape_button;
     private TextView vitesse_etape_text;
     private Button fast_etape_button;
+
+    private Button lower_etape_button;
+    private TextView number_etape_text;
+    private Button upper_etape_button;
 
     //bouton pour ajouter une étape (en dehors du Gridview)
     private Button add_etape_button;
@@ -77,6 +83,10 @@ public class ModifSeqActivity extends AppCompatActivity {
         slow_etape_button = (Button) findViewById(R.id.slow_etape_btn);
         vitesse_etape_text = (TextView) findViewById(R.id.vitesse_etape_text);
         fast_etape_button = (Button) findViewById(R.id.fast_etape_btn);
+
+        lower_etape_button = (Button) findViewById(R.id.lower_etape_btn);
+        number_etape_text = (TextView) findViewById(R.id.number_etape_text);
+        upper_etape_button = (Button) findViewById(R.id.upper_etape_btn);
 
         add_etape_button = (Button) findViewById(R.id.add_etape_btn);
 
