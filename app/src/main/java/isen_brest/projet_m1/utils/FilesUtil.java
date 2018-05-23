@@ -3,6 +3,13 @@ package isen_brest.projet_m1.utils;
 import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,6 +21,8 @@ import java.io.OutputStream;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
+
+import isen_brest.projet_m1.R;
 
 public class FilesUtil {
 
@@ -47,6 +56,14 @@ public class FilesUtil {
         return file;
     }
 
+    public static File getMediaDir(Context context) {
+        File file = new File(context.getExternalFilesDir(null), "Media");
+        if (!file.mkdirs()) {
+            Log.e("Error: ", "Directory not created");
+        }
+        return file;
+    }
+
     // Crée un fichier à l'emplacement fourni par pathname, au titre par filename et au contenu par data
     public static void  createFile(byte [] data, File pathname, String filename) {
 
@@ -72,13 +89,13 @@ public class FilesUtil {
 
     // Ouvre le fichier JSON à l'emplacement fourni par pathname et au titre par filename.
     // Retourne le contenu du fichier sous la forme d'une chaine de caractères
-    public static String openJsonFile(File pathname, String filename) {
+    public static JSONObject openJsonFile(File jsonFile) {
 
-        File file = new File(pathname, filename); // Crée le chemin jusqu'à l'emplacement du fichier
         String data = null;
+        JSONObject jsonObject = null;
 
         try {
-            FileInputStream fis = new FileInputStream(file);
+            FileInputStream fis = new FileInputStream(jsonFile);
 
             FileChannel fc = fis.getChannel();
             MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
@@ -87,22 +104,27 @@ public class FilesUtil {
 
             fis.close();
         } catch (IOException e) {
-            Log.w("Error", "Error reading " + file, e);
+            Log.w("Error", "Error reading " + jsonFile, e);
         }
 
-        return data;
+        try {
+            jsonObject = new JSONObject(data);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject;
     }
 
     // Copie une ressource depuis 'raw' vers le dossier de l'application
-    private void copyFiletoExternalStorage(Context context, int resourceId, String resourceName){
+    private void copyResourceToExternalStorage(Context context, int resourceId, String resourceName){
 
-        String pathSDCard = context.getExternalFilesDir(null) + resourceName;
+        String path = context.getExternalFilesDir(null) + resourceName;
 
         try{
             InputStream in = context.getResources().openRawResource(resourceId);
 
             FileOutputStream out = null;
-            out = new FileOutputStream(pathSDCard);
+            out = new FileOutputStream(path);
 
             byte[] buff = new byte[1024];
             int read = 0;
@@ -119,5 +141,20 @@ public class FilesUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    // Donne la liste des id des ressources contenus 'raw'
+    private void listResources () {
+
+    }
+
+    // Liste tous les fichiers JSON du dossier de l'application
+    private void ListJson () {
+
+    }
+
+    public static void showPicture (Context context, ImageView view, String path) {
+        //Picasso.get().load(path).into(view);
+        Picasso.get().load(context.getResources().getIdentifier("img_1.jpg", "drawable", context.getPackageName())).into(view);
     }
 }

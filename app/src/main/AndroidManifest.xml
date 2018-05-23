@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="isen_brest.projet_m1">
-    <uses-feature android:name="android.hardware.camera"
+
+    <uses-sdk android:minSdkVersion="19" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
         android:required="false" />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
-    <uses-sdk
-        android:minSdkVersion="19" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -28,7 +32,7 @@
         <activity android:name=".PasswordActivity" />
         <activity android:name=".ModifMenuActivity" />
         <activity android:name=".ModifSeqActivity" />
-
+        <activity android:name=".DialogTest"></activity>
     </application>
 
 </manifest>

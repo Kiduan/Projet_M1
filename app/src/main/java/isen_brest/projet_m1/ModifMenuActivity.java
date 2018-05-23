@@ -15,7 +15,7 @@ public class ModifMenuActivity extends AppCompatActivity {
 
     //déclaration des variables : Gridview, tableau d'icônes importées, et description correspondante
     private GridView seqList = null;
-    String[] Icons = {
+    Integer[] Icons = {
             R.drawable.img_1, R.drawable.img_2,
             R.drawable.img_3, R.drawable.img_4,
             R.drawable.img_1, R.drawable.img_2,
@@ -65,7 +65,7 @@ public class ModifMenuActivity extends AppCompatActivity {
         options = (Button) findViewById(R.id.options_btn);
         add = (Button) findViewById(R.id.add_seq_btn);
         share = (Button) findViewById(R.id.share_btn);
-
+/*
         //adapteur CustomGridView
         final CustomGridviewMenu adapter = new CustomGridviewMenu(this, iconDescriptions, Icons);
         seqList.setAdapter(adapter);
@@ -79,8 +79,8 @@ public class ModifMenuActivity extends AppCompatActivity {
                 modifseqActivity.putExtra("description",((TextView) view.findViewById(R.id.custom_user_menu_icon_description)).getText());
                 startActivity(modifseqActivity);
             }
-
         });
+*/
     }
 
     // méthode OnClick sur le bouton "Ajouter"

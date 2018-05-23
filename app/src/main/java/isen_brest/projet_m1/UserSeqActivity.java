@@ -1,5 +1,6 @@
 package isen_brest.projet_m1;
 
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -41,15 +42,9 @@ public class UserSeqActivity extends AppCompatActivity {
         //------------------------------ Temporaire -----------------------------
         //-----------------------------------------------------------------------
         // Création de l'objet Sequentiel depuis le fichier
-        File pathname = FilesUtil.getJsonDir(this);
-        String data = FilesUtil.openJsonFile(pathname, "Exemple de séquentiel"+".json");
+        File pathname = new File(FilesUtil.getJsonDir(this), "Exemple de séquentiel"+".json");
 
-        JSONObject jsonTest = null;
-        try {
-            jsonTest = new JSONObject(data);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        JSONObject jsonTest = FilesUtil.openJsonFile(pathname);
 
         Sequentiel seqTest = JsonUtil.toSequentiel(jsonTest);
         //-----------------------------------------------------------------------
