@@ -18,9 +18,21 @@ public class UserMenuActivity extends AppCompatActivity {
             R.drawable.img_1, R.drawable.img_2,
             R.drawable.img_3, R.drawable.img_4,
             R.drawable.img_1, R.drawable.img_2,
+            R.drawable.img_1, R.drawable.img_2,
+            R.drawable.img_3, R.drawable.img_4,
+            R.drawable.img_1, R.drawable.img_2,
+            R.drawable.img_1, R.drawable.img_2,
+            R.drawable.img_3, R.drawable.img_4,
+            R.drawable.img_1, R.drawable.img_2,
+            R.drawable.img_1, R.drawable.img_2,
+            R.drawable.img_3, R.drawable.img_4,
+            R.drawable.img_1, R.drawable.img_2,
     };
     String[] iconDescriptions = {
         "image 1", "image 2", "image 3", "image 4", "image 5", "image 6",
+            "image 7", "image 8", "image 9", "image 10", "image 11", "image 12",
+            "image 13", "image 14", "image 15", "image 16", "image 17", "image 18",
+            "image 19", "image 20", "image 21", "image 22", "image 23", "image 24",
     };
 
     @Override

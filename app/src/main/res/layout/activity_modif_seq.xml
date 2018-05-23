@@ -14,11 +14,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif"
         android:gravity="center"
         android:text="Page d'ajout ou de modification d'un séquentiel"
         android:textSize="24sp"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Texte qui va afficher les données voulues -->
     <TextView

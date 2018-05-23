@@ -15,7 +15,7 @@ public class ModifMenuActivity extends AppCompatActivity {
 
     //déclaration des variables : Gridview, tableau d'icônes importées, et description correspondante
     private GridView seqList = null;
-    Integer[] Icons = {
+    String[] Icons = {
             R.drawable.img_1, R.drawable.img_2,
             R.drawable.img_3, R.drawable.img_4,
             R.drawable.img_1, R.drawable.img_2,
