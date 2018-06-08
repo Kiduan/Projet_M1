@@ -45,7 +45,6 @@ public class CustomGridviewMenu  extends BaseAdapter {
             seqList = new View(mContext);
             seqList = inflater.inflate(R.layout.custom_gridview_menu, null);
 
-      //      imageView.setBitmap(bm)
         }
         else {
             seqList = (View) convertView;

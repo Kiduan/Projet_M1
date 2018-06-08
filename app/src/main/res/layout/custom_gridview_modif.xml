@@ -25,9 +25,10 @@
         android:id="@+id/fast_etape_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/vitesse_etape_text"
         android:layout_centerVertical="true"
-        android:text="+"/>
+        android:layout_toRightOf="@+id/vitesse_etape_text"
+        android:onClick="vitessePlusClick"
+        android:text="+" />
 
     <ImageView
         android:id="@+id/custom_user_menu_icon"

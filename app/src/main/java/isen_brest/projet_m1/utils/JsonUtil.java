@@ -12,6 +12,7 @@ import isen_brest.projet_m1.model.Sequentiel;
 
 public class JsonUtil {
 
+    // Retourne un JSONObject correspondant à l'objet Sequentiel passé en paramètre
     public static JSONObject toJson (Sequentiel sequentiel){
         try {
             JSONObject sequentielJson = new JSONObject();
@@ -46,6 +47,7 @@ public class JsonUtil {
         }
     }
 
+    // Retourne un objet Sequentiel correspondant au JSONObject passé en paramètre
     public static Sequentiel toSequentiel (JSONObject jsonObject){
         Sequentiel sequentiel = new Sequentiel();
 

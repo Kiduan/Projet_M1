@@ -8,17 +8,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-//import com.squareup.picasso.Picasso;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-import java.io.File;
 import java.util.List;
 
 import isen_brest.projet_m1.model.Sequentiel;
-import isen_brest.projet_m1.utils.FilesUtil;
-import isen_brest.projet_m1.utils.JsonUtil;
 
+import static isen_brest.projet_m1.utils.FilesUtil.listSequentiels;
+import static isen_brest.projet_m1.utils.FilesUtil.mediaToBitmap;
+
+// Cette activité permet de faire défiler les étapes du séquentiel choisi à l'activité précédente
 public class UserSeqActivity extends AppCompatActivity {
 
     //Variables
@@ -34,39 +31,42 @@ public class UserSeqActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_seq);
 
+        //---------------------------------------------------------------------------
         //branchement des variables avec leur layout
         nomEtape = (TextView) findViewById(R.id.nomEtape);
         media = (ImageView) findViewById(R.id.media);
         suivant = (Button) findViewById(R.id.suivant);
 
-        //------------------------------ Temporaire -----------------------------
-        //-----------------------------------------------------------------------
-        // Création de l'objet Sequentiel depuis le fichier
-        File pathname = new File(FilesUtil.getJsonDir(this), "Exemple de séquentiel"+".json");
 
-        JSONObject jsonTest = FilesUtil.openJsonFile(pathname);
+        //---------------------------------------------------------------------------
+        // Ajout d'un OnClickListener pour l'image
+        View.OnClickListener clickListener = new View.OnClickListener() {
+            public void onClick(View v) {
+                if (v.equals(media)) {
+                    if(numEtapeActuelle<etapes.size()-1){numEtapeActuelle++;}
 
-        Sequentiel seqTest = JsonUtil.toSequentiel(jsonTest);
-        //-----------------------------------------------------------------------
+                    displayEtape();
+                }
+            }
+        };
+        media.setOnClickListener(clickListener);
 
-
-        //-------------------- Conservé pour avoir une trace --------------------
-        //-----------------------------------------------------------------------
-        //affichage des données importées au clic sur l'activité précédente
-        String newString;
+        //---------------------------------------------------------------------------
+        // Récupération du séquentiel sélectionné à l'activité précédente
+        Sequentiel seq;
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
-            if (extras == null) {newString = null;}
-            else {newString = extras.getString("description");}
+            if (extras == null) {seq = null;}
+            else {seq = listSequentiels(this).get(extras.getInt("sequentiel"));}
         }
-        else {newString = (String) savedInstanceState.getSerializable("description");}
-        //-----------------------------------------------------------------------
-        //-----------------------------------------------------------------------
+        else {seq = (Sequentiel) savedInstanceState.getSerializable("sequentiel");}
 
 
         // On récupère la liste des activités et on initialise 'numEtapeActuelle'
-        etapes = seqTest.getEtapeList();
+        etapes = seq.getEtapeList();
         numEtapeActuelle = 0;
+
+        displayEtape();
     }
 
     // Méthode utilisée par le bouton "suivant"
@@ -83,15 +83,19 @@ public class UserSeqActivity extends AppCompatActivity {
         displayEtape();
     }
 
+    // Méthode permettant d'afficher l'image indiqué dans la variable "media" de l'étape
     private void displayEtape (){
         // On affiche le texte de l'étape
         nomEtape.setText(etapes.get(numEtapeActuelle).getNomEtape());
 
-        // On affiche l'image
+        // On récupère "media"
         String name = etapes.get(numEtapeActuelle).getMedia();
-        int id = getResources().getIdentifier(name, "drawable", getPackageName());
-        media.setImageDrawable(getResources().getDrawable(id));
 
-        //Picasso.get().load("http://i.imgur.com/DvpvklR.png").into(media);
+        // On obtient un bitmap de l'image donnée
+        Bitmap bitmap = mediaToBitmap(this, name);
+
+        // On affiche l'image
+        media.setImageBitmap(bitmap);
+
     }
 }

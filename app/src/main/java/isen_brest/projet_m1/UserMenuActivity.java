@@ -20,10 +20,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import static isen_brest.projet_m1.utils.FilesUtil.getJsonDir;
+import static isen_brest.projet_m1.utils.FilesUtil.listSequentiels;
 import static isen_brest.projet_m1.utils.FilesUtil.getMediaDir;
-import static isen_brest.projet_m1.utils.FilesUtil.openJsonFile;
-import static isen_brest.projet_m1.utils.JsonUtil.toSequentiel;
+import static isen_brest.projet_m1.utils.FilesUtil.mediaToBitmap;
 
 import isen_brest.projet_m1.model.Sequentiel;
 import isen_brest.projet_m1.utils.CustomGridviewMenu; //utilise le layout GridView importé
@@ -32,57 +31,35 @@ public class UserMenuActivity extends AppCompatActivity {
 
     //déclaration des variables : le GridView, le tableau d'icônes importées, et leurs descriptions
     private GridView seqList = null;
-    Integer[] Icons = {
-            R.drawable.img_1, R.drawable.img_2,
-            R.drawable.img_3, R.drawable.img_4,
-            R.drawable.img_1, R.drawable.img_2,
-            R.drawable.img_1, R.drawable.img_2,
-            R.drawable.img_3, R.drawable.img_4,
-            R.drawable.img_1, R.drawable.img_2,
-            R.drawable.img_1, R.drawable.img_2,
-            R.drawable.img_3, R.drawable.img_4,
-            R.drawable.img_1, R.drawable.img_2,
-            R.drawable.img_1, R.drawable.img_2,
-            R.drawable.img_3, R.drawable.img_4,
-            R.drawable.img_1, R.drawable.img_2,
-    };
-    String[] iconDescriptions = {
-        "image 1", "image 2", "image 3", "image 4", "image 5", "image 6",
-            "image 7", "image 8", "image 9", "image 10", "image 11", "image 12",
-            "image 13", "image 14", "image 15", "image 16", "image 17", "image 18",
-            "image 19", "image 20", "image 21", "image 22", "image 23", "image 24",
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_menu);
 
+        //
         seqList = (GridView) findViewById(R.id.seq_list);
 
 
-        // ---------- Temporaire ----------
-        // --------------------------------
+        // --------------------------------------------------------------------------------
         List<Sequentiel> sequentiels = listSequentiels(this);
 
-        String[] iconDescr = arrayNomSeq(sequentiels);
-        String[] iconStr = arrayIconSeq(sequentiels);
+        String[] iconDescr = new String[sequentiels.size()];
 
-        Bitmap[] iconBitmap = new Bitmap[iconStr.length];
-        for (int i = 0; i < iconStr.length; i++) {
-            iconBitmap[i] = mediaToBitmap(this, iconStr[i]);
+        String iconStr;
+        Bitmap[] iconBitmap = new Bitmap[sequentiels.size()];
+
+        for (int i = 0; i < sequentiels.size(); i++) {
+            iconDescr[i] = sequentiels.get(i).getNomSequentiel();
+
+            iconStr = sequentiels.get(i).getEtapeList().get(0).getMedia();
+            iconBitmap[i] = mediaToBitmap(this, iconStr);
         }
 
-        Integer[] iconInt = new Integer[iconStr.length];
-        for (int i = 0; i < iconStr.length; i++) {
-            iconInt[i] = R.drawable.img_2;
-        }
-        // ---------------------------------
-        // ---------------------------------
 
 
+        // --------------------------------------------------------------------------------
         //adapteur CustomGridview
-        //final CustomGridviewMenu adapter = new CustomGridviewMenu(this, iconDescriptions, Icons);
         final CustomGridviewMenu adapter = new CustomGridviewMenu(this, iconDescr, iconBitmap);
         seqList.setAdapter(adapter);
 
@@ -92,65 +69,10 @@ public class UserMenuActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Intent userseqActivity = new Intent(view.getContext(),UserSeqActivity.class);
-                userseqActivity.putExtra("description",((TextView) view.findViewById(R.id.custom_user_menu_icon_description)).getText());
+                userseqActivity.putExtra("sequentiel", position);
                 startActivity(userseqActivity);
             }
         });
 
-    }
-
-    private List<Sequentiel> listSequentiels (Context context)
-    {
-        List<Sequentiel> sequentiels = new ArrayList<>();
-
-        File directory = getJsonDir(context);
-
-        File[] files = directory.listFiles();
-
-        for (int i = 0; i < files.length; i++)
-        {
-            // openJsonFile retourne un JSONObject depuis un fichier
-            // toSequentiel retourne un Sequentiel depuis un JSONObject
-            // add ajoute ce sequentiel à la liste "sequentiels"
-            sequentiels.add( toSequentiel( openJsonFile( files[i] ) ) );
-        }
-
-        return sequentiels;
-    }
-
-    private String[] arrayNomSeq(List<Sequentiel> listSeq)
-    {
-        String[] nomSeq = new String[listSeq.size()];
-
-        for (int i = 0; i < listSeq.size(); i++) {
-            nomSeq[i] = listSeq.get(i).getNomSequentiel();
-        }
-
-        return nomSeq;
-    }
-
-    private String[] arrayIconSeq(List<Sequentiel> listSeq)
-    {
-        String[] IconSeq = new String[listSeq.size()];
-
-        for (int i = 0; i < listSeq.size(); i++) {
-            IconSeq[i] = listSeq.get(i).getEtapeList().get(0).getMedia();
-        }
-
-        return IconSeq;
-    }
-
-    private Bitmap mediaToBitmap(Context context, String media){
-        File filepath = new File(getMediaDir(context), media);
-        Bitmap bitmap = null;
-
-        if(filepath.exists()){
-            bitmap = BitmapFactory.decodeFile(filepath.toString());
-        }
-        else {
-            bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.img_1);
-        }
-
-        return bitmap;
     }
 }

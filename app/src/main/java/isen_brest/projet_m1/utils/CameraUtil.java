@@ -64,6 +64,5 @@ public class CameraUtil {
         }
     }
 
-    //fonction qui permet de récupérer l'image enregistrée, et l'affiche dans ModifSeqActivity
 
 }

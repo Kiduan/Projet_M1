@@ -164,7 +164,7 @@ public class Sequentiel {
 
         Sequentiel.Etape etape3 = new Sequentiel.Etape();
         etape3.setMedia("img_7");
-        etape3.setNomEtape("deuxième étape");
+        etape3.setNomEtape("3ème étape");
         etape3.setNumEtape(3);
         etape3.setMinuteur(10);
 

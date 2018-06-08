@@ -1,12 +1,10 @@
 package isen_brest.projet_m1.utils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
-
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,8 +19,13 @@ import java.io.OutputStream;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 import isen_brest.projet_m1.R;
+import isen_brest.projet_m1.model.Sequentiel;
+
+import static isen_brest.projet_m1.utils.JsonUtil.toSequentiel;
 
 public class FilesUtil {
 
@@ -56,6 +59,7 @@ public class FilesUtil {
         return file;
     }
 
+    // Comme getJsonDir mais pour le dossier "Media"
     public static File getMediaDir(Context context) {
         File file = new File(context.getExternalFilesDir(null), "Media");
         if (!file.mkdirs()) {
@@ -115,6 +119,57 @@ public class FilesUtil {
         return jsonObject;
     }
 
+    // Parcours le dossier Json de l'application et retourne une liste des objets Sequentiels
+    public static List<Sequentiel> listSequentiels (Context context)
+    {
+        List<Sequentiel> sequentiels = new ArrayList<>();
+
+        File directory = getJsonDir(context);
+
+        File[] files = directory.listFiles();
+
+        for (int i = 0; i < files.length; i++)
+        {
+            // openJsonFile retourne un JSONObject depuis un fichier
+            // toSequentiel retourne un Sequentiel depuis un JSONObject
+            // add ajoute ce sequentiel à la liste "sequentiels"
+            sequentiels.add( toSequentiel( openJsonFile( files[i] ) ) );
+        }
+
+        return sequentiels;
+    }
+
+    // Vérifie l'existence de l'image donnée par "media" dans le dossier media de l'application
+    // Retourne un objet Bitmap de l'image
+    // Retourne une image par défaut si l'image n'existe pas
+    public static Bitmap mediaToBitmap(Context context, String media){
+
+        File filepath;
+        Bitmap bitmap;
+
+        // Si la chaine est vide on retourne l'image par défaut
+        if(media.isEmpty()){
+            return BitmapFactory.decodeResource(context.getResources(), R.drawable.img_1);
+        }
+
+        // L'objet File pointe sur le media choisi dans le dossier media de l'application
+        filepath = new File(getMediaDir(context), media);
+
+        // Si le fichier existe, on construit l'objet Bitmap correspondant
+        if (filepath.exists()) {
+            bitmap = BitmapFactory.decodeFile(filepath.toString());
+        }
+        // Si le fichier n'existe pas, on retourne l'image par défaut
+        else {
+            bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.img_1);
+        }
+
+        return bitmap;
+    }
+
+
+
+    // Non utilisée, non testée
     // Copie une ressource depuis 'raw' vers le dossier de l'application
     private void copyResourceToExternalStorage(Context context, int resourceId, String resourceName){
 
@@ -143,18 +198,5 @@ public class FilesUtil {
         }
     }
 
-    // Donne la liste des id des ressources contenus 'raw'
-    private void listResources () {
 
-    }
-
-    // Liste tous les fichiers JSON du dossier de l'application
-    private void ListJson () {
-
-    }
-
-    public static void showPicture (Context context, ImageView view, String path) {
-        //Picasso.get().load(path).into(view);
-        Picasso.get().load(context.getResources().getIdentifier("img_1.jpg", "drawable", context.getPackageName())).into(view);
-    }
 }

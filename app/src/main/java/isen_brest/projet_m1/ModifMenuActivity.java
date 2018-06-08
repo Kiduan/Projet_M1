@@ -1,6 +1,7 @@
 package isen_brest.projet_m1;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,52 +9,35 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.AdapterView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.File;
+import java.util.List;
+
+import isen_brest.projet_m1.model.Sequentiel;
 import isen_brest.projet_m1.utils.CustomGridviewMenu;
+import isen_brest.projet_m1.utils.FilesUtil;
+
+import static isen_brest.projet_m1.utils.FilesUtil.getJsonDir;
+import static isen_brest.projet_m1.utils.FilesUtil.listSequentiels;
+import static isen_brest.projet_m1.utils.FilesUtil.mediaToBitmap;
 
 public class ModifMenuActivity extends AppCompatActivity {
 
     //déclaration des variables : Gridview, tableau d'icônes importées, et description correspondante
     private GridView seqList = null;
-    Integer[] Icons = {
-            R.drawable.img_1, R.drawable.img_2,
-            R.drawable.img_3, R.drawable.img_4,
-            R.drawable.img_1, R.drawable.img_2,
-            R.drawable.img_3, R.drawable.img_4,
-            R.drawable.img_1, R.drawable.img_2,
-            R.drawable.img_3, R.drawable.img_4,
-            R.drawable.img_1, R.drawable.img_2,
-            R.drawable.img_3, R.drawable.img_4,
-            R.drawable.img_1, R.drawable.img_2,
-            R.drawable.img_3, R.drawable.img_4,
-            R.drawable.img_1, R.drawable.img_2,
-            R.drawable.img_3, R.drawable.img_4,
-            R.drawable.img_1, R.drawable.img_2,
-            R.drawable.img_3, R.drawable.img_4,
-            R.drawable.img_1, R.drawable.img_2,
-            R.drawable.img_3, R.drawable.img_4,
-            R.drawable.img_1, R.drawable.img_2,
-            R.drawable.img_3, R.drawable.img_4,
-            R.drawable.img_1, R.drawable.img_2,
 
-
-    };
-    String[] iconDescriptions = {
-            "image 1", "image 2", "image 3", "image 4", "image 5", "image 6",
-            "image 7", "image 8", "image 9", "image 10",
-            "image 11", "image 12", "image 13", "image 14",
-            "image 15", "image 16", "image 17", "image 18",
-            "image 19", "image 20", "image 21", "image 22",
-            "image 23", "image 24", "image 25", "image 26",
-            "image 27", "image 28", "image 29", "image 30",
-            "image 31", "image 32", "image 33", "image 34",
-            "image 35", "image 36", "image 37", "image 38",
-    };
 
     //déclaration des 3 boutons supplémentaires
     private Button options;
     private Button add;
     private Button share;
+
+    //Chemin jusqu'au dossier Json
+    File pathname;
+
+    // Liste des séquentiels
+    List<Sequentiel> sequentiels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +49,29 @@ public class ModifMenuActivity extends AppCompatActivity {
         options = (Button) findViewById(R.id.options_btn);
         add = (Button) findViewById(R.id.add_seq_btn);
         share = (Button) findViewById(R.id.share_btn);
-/*
+
+        //Chemin jusqu'au dossier Json
+        pathname = getJsonDir(this);
+
+        // --------------------------------------------------------------------------------
+        // On récupère la liste des séquentiels du dossier Json
+        sequentiels = listSequentiels(this);
+
+        String[] iconDescr = new String[sequentiels.size()];
+
+        String iconStr;
+        Bitmap[] iconBitmap = new Bitmap[sequentiels.size()];
+
+        for (int i = 0; i < sequentiels.size(); i++) {
+            iconDescr[i] = sequentiels.get(i).getNomSequentiel();
+
+            iconStr = sequentiels.get(i).getEtapeList().get(0).getMedia();
+            iconBitmap[i] = mediaToBitmap(this, iconStr);
+        }
+
+        // --------------------------------------------------------------------------------
         //adapteur CustomGridView
-        final CustomGridviewMenu adapter = new CustomGridviewMenu(this, iconDescriptions, Icons);
+        final CustomGridviewMenu adapter = new CustomGridviewMenu(this, iconDescr, iconBitmap);
         seqList.setAdapter(adapter);
 
         //méthode OnClick qui permet à chaque item d'exporter ses données correspondantes vers l'activité suivante
@@ -76,11 +80,21 @@ public class ModifMenuActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Intent modifseqActivity = new Intent(view.getContext(),ModifSeqActivity.class);
-                modifseqActivity.putExtra("description",((TextView) view.findViewById(R.id.custom_user_menu_icon_description)).getText());
+                modifseqActivity.putExtra("sequentiel", position);
                 startActivity(modifseqActivity);
             }
         });
-*/
+
+        //méthode qui permet de supprimer l'élément choisi
+        seqList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
+                FilesUtil.deleteFile(pathname, sequentiels.get(position).getNomSequentiel() + ".json");
+
+                return true;
+            }
+        });
     }
 
     // méthode OnClick sur le bouton "Ajouter"

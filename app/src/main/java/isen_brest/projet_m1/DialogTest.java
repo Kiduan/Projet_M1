@@ -16,6 +16,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+// Activité utilisé pour préparer la boite de dialogue 'dialog_file_chooser'
+
 public class DialogTest extends AppCompatActivity {
 
     Button buttonOpenDialog;

@@ -35,6 +35,14 @@ public class MainActivity extends AppCompatActivity {
         Sequentiel sequentiel2 = Sequentiel.createSeqTest("Test 2");
         JSONObject jsonObject2 = JsonUtil.toJson(sequentiel2);
         FilesUtil.createFile(jsonObject2.toString().getBytes(), pathname, sequentiel2.getNomSequentiel()+".json");
+
+        Sequentiel sequentiel3 = Sequentiel.createSeqTest("Troisième test");
+        JSONObject jsonObject3 = JsonUtil.toJson(sequentiel3);
+        FilesUtil.createFile(jsonObject3.toString().getBytes(), pathname, sequentiel3.getNomSequentiel()+".json");
+
+        Sequentiel sequentiel4 = Sequentiel.createSeqTest("Fourth");
+        JSONObject jsonObject4 = JsonUtil.toJson(sequentiel4);
+        FilesUtil.createFile(jsonObject4.toString().getBytes(), pathname, sequentiel4.getNomSequentiel()+".json");
         // ---------------------------------------------------------------------------
     }
 

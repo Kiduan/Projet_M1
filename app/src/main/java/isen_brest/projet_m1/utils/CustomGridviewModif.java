@@ -1,6 +1,7 @@
 package isen_brest.projet_m1.utils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,10 @@ import isen_brest.projet_m1.R;
 public class CustomGridviewModif extends BaseAdapter {
 
     private Context mContext;
-    private final Integer[] Icons;
+    private Bitmap[] Icons;
     private final String[] iconDescriptions;
 
-    public CustomGridviewModif(Context c, String[] iconDescriptions, Integer[] Icons)
+    public CustomGridviewModif(Context c, String[] iconDescriptions, Bitmap[] Icons)
     {
         mContext = c;
         this.Icons = Icons;
@@ -53,9 +54,10 @@ public class CustomGridviewModif extends BaseAdapter {
 
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         textView.setText(iconDescriptions[position]);
-        imageView.setImageResource(Icons[position]);
+        imageView.setImageBitmap(Icons[position]);
         return modifList;
     }
+
 }
 
 
